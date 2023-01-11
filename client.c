@@ -27,7 +27,9 @@ int main(int ac, char *av[]){
 	pid = ft_atoi(av[1]);
 	if(pid <= 0)
 		write(STDOUT_FILENO, "\033[31mWrong pid!!\n", 17);
-	else
+	else{
 		kill(pid, SIGUSR1);		
+		kill(pid, SIGUSR2);
+	}
 	return 0;
 }

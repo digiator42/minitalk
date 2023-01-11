@@ -6,8 +6,11 @@
 
 void	ft_handler(int signum)
 {
-	write(1, "got process id\n", 16);
-}
+	if(signum == SIGUSR1)
+		write(1, "got process SIGUSR1\n", 21);
+	else	
+		write(1, "got process id, SIGUSR2\n", 25);
+}		
 int main(){
 	int pid = getpid();
 	printf("%d\n", pid);
