@@ -6,8 +6,13 @@
 
 void	ft_handler(int signum)
 {
-	if(signum == SIGUSR1)
+	static char c;
+
+	if(signum == SIGUSR1){
+		c = (c & 255) + '0';
+		printf("%c", c);
 		write(1, "got process SIGUSR1\n", 21);
+	}
 	else	
 		write(1, "got process id, SIGUSR2\n", 25);
 }		

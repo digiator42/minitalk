@@ -15,6 +15,9 @@ int ft_atoi(char *str){
 			sign *= -1;
 	while(str[i] >= '0' && str[i] <= '9')
 		res = (res * 10) + (str[i++] - 48);
+	if (str[i])
+		if (str[i] < '0' || str[i] > '9')
+			return (0);	
 	return res * sign;
 }
 
