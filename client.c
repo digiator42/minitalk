@@ -27,10 +27,7 @@ static void	send_bits(int pid, char *str)
 	while (*str)
 	{
 		bit = *str & 255;
-		if (bit == 1)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
+		kill(pid, SIGUSR1);
 		str++;
 		i = 8;
 		usleep(100);
