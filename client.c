@@ -18,6 +18,25 @@ int ft_atoi(char *str){
 	return res * sign;
 }
 
+static void	send_bits(int pid, char *str)
+{
+	int		i;
+	char	bit;
+
+	i = 8;
+	while (*str)
+	{
+		bit = *str & 255;
+		if (bit == 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		str++;
+		i = 8;
+		usleep(100);
+	}
+}
+
 int main(int ac, char *av[]){
 
 	int pid;
@@ -27,9 +46,7 @@ int main(int ac, char *av[]){
 	pid = ft_atoi(av[1]);
 	if(pid <= 0)
 		write(STDOUT_FILENO, "\033[31mWrong pid!!\n", 17);
-	else{
-		kill(pid, SIGUSR1);		
-		kill(pid, SIGUSR2);
-	}
+	else
+		send_bits(pid, av[2]);
 	return 0;
 }
