@@ -4,18 +4,24 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-void	ft_handler(int signum)
+static void	ft_handler(int signum)
 {
-	static char c;
+	static int				len;
+	static unsigned char	character;
 
-	if(signum == SIGUSR1){
-		c = (c & 255) + '0';
-		printf("%c", c);
-		write(1, "got process SIGUSR1\n", 21);
+	if (signum == SIGUSR1)
+		character = character << 1 | 1;
+	else
+		character = character << 1 | 0;
+	len++;
+	if (len == 8)
+	{
+		write(1, &character, 1);
+		character = 0;
+		len = 0;
 	}
-	else	
-		write(1, "got process id, SIGUSR2\n", 25);
-}		
+}
+
 int main(){
 	int pid = getpid();
 	printf("%d\n", pid);
