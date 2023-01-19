@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:03:02 by ahassan           #+#    #+#             */
-/*   Updated: 2023/01/19 14:36:36 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/01/19 19:53:00 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,10 @@ static void	send_bits(int pid, char *str)
 		while (i--)
 		{
 			bit = (*str >> i) & 1;
-		if (bit == 1){
-			write(1, "1", 1);
-			kill(pid, SIGUSR1);
-		}
-		else{
-			write(1, "0", 1);
-			kill(pid, SIGUSR2);
-		}
+			if (bit == 1)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
 			usleep(150);
 		}
 		str++;
